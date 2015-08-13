@@ -12,7 +12,6 @@ if !(File.exist?(inputPath))
     exit
 end
 
-
 vars = []
 open(inputPath).each do |var|
     vars.push(var.chomp)
@@ -43,7 +42,7 @@ vars.each do |var|
     output.push("")
     output.push(sprintf("\tpublic function set%s($%s)", camelize(var), var))
     output.push("\t{")
-    output.push(sprintf("\t\t$this->_%s = $%s;", var, var ))
+    output.push(sprintf("\t\t$this->_%s = $%s;", var, var))
     output.push("\t}")
 end
 
