@@ -28,7 +28,7 @@ output.push("<?php")
 output.push("")
 output.push("namespace Namespace;")
 output.push("")
-output.push("class Class")
+output.push("class Entity")
 output.push("{")
 
 vars.each do |var|
