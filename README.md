@@ -2,7 +2,7 @@
 Simple PHP Setter/Getter Generator
 ## 使い方
 ```
-$ ruby entity_generator.rb [file_path]
+$ ruby entity_generator.rb [var_file_path]
 ```
 ## 例
 1.変数名ファイルを用意
