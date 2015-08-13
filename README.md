@@ -5,17 +5,17 @@ Simple PHP Setter/Getter Generator
 $ ruby entity_generator.rb [file_path]
 ```
 ## 例
-1. 変数名ファイルを用意
+1.変数名ファイルを用意
 ```
 # vars
 test
 testVar
 ```
-2. 実行
+2.実行
 ```
 $ ruby entity_generator.rb vars
 ```
-3. 変数名ファイルと同ディレクトリに「変数名ファイル名.php」が出力される
+3.変数名ファイルと同ディレクトリに「変数名ファイル名.php」が出力される
 ```
 # vars.php
 <?php
