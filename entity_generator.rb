@@ -1,4 +1,4 @@
-# Entity Class Generator
+# Entity Generator
 
 inputPath = ARGV[0]
 
@@ -43,7 +43,7 @@ vars.each do |var|
     output.push("")
     output.push(sprintf("\tpublic function set%s($%s)", camelize(var), var))
     output.push("\t{")
-    output.push(sprintf("\t\t$this->_%s = $%s;", var, var ))
+    output.push(sprintf("\t\t$this->_%s = $%s;", var, var))
     output.push("\t}")
 end
 
