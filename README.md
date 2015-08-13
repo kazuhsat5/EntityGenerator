@@ -22,7 +22,7 @@ $ ruby entity_generator.rb vars
 
 namespace Namespace;
 
-class Class
+class Entity
 {
     private $_test;
     private $_testVar;
