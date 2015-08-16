@@ -30,6 +30,7 @@ class Entity < Thor
         # 例外発生時処理
         rescue => e
             puts e.message
+            exit(1)
     end
 
     private
