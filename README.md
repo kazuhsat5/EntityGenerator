@@ -4,6 +4,11 @@ Simple PHP Setter/Getter Generator
 ```
 $ ruby entity_generator.rb [var_file_path]
 ```
+* thor gemのインストール
+```
+$ gem install thor
+```
+（参考）https://github.com/erikhuda/thor
 ## 例
 1.変数名ファイルを用意
 ```
@@ -13,7 +18,7 @@ testVar
 ```
 2.実行
 ```
-$ ruby entity_generator.rb vars
+$ ./entity -f vars
 ```
 3.変数名ファイルと同ディレクトリに「変数名ファイル名.php」が出力される
 ```
