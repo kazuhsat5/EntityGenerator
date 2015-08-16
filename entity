@@ -1,0 +1,122 @@
+#!/usr/bin/env ruby
+#coding: utf-8
+
+=begin
+PHP Entity Class Generate Command
+PHPのEntityクラスの雛形を生成するCLIコマンド
+2015/08/16 作成
+=end
+
+require 'thor'
+
+class Entity < Thor
+    default_command :make
+
+    desc 'entity', 'make PHP entity class template.'
+    option 'file', aliases: '-f', desc: 'readed from variable file [file_name]'
+    def make
+        # ファイルより変数名を読み込む
+        vars = read_file(options[:file])
+
+        # 変数名配列よりPHPクラスを作成
+        contents = make_class(vars);
+
+        # ファイル(Entity.php)に書き込む
+        write_file(camelize(options[:file]) + ".php", contents)
+
+        # 処理終了
+        exit(0)
+
+        # 例外発生時処理
+        rescue => e
+            puts e.message
+    end
+
+    private
+
+    # ファイルを読み込む
+    #
+    # @param [String] path ファイルパス
+    # @return [Array]
+    def read_file(path)
+        # ファイルの存在確認
+        if !(File.exist?(path)) then
+            raise "variable file is not found"
+        end
+
+        # ファイルより変数名を読み込み配列に格納
+        result = []
+        open(path).each do |var|
+            result.push(var.chomp)
+        end
+
+        # ファイルの内容が空の場合
+        if result.empty? then
+            raise "variable file is empty"
+        end
+
+        return result
+    end
+
+    # ファイルに書き込む
+    #
+    # @param [Array] contents 書き込む内容
+    # @return void
+    def write_file(path, content)
+        # ファイル書き込み
+        File.open(path, "w") do |file|
+            content.each do |line|
+                file.write(line + "\n")
+            end
+        end
+    end
+
+    # 変数名配列よりクラスファイルを生成する
+    #
+    # @param [Array] vars 変数名配列
+    # @return void
+    def make_class(vars)
+        # ファイルに書き込む内容を配列で保持
+        result = []
+        result.push("<?php")
+        result.push("")
+        result.push("namespace Namespace;")
+        result.push("")
+        result.push("class Class")
+        result.push("{")
+
+        vars.each do |var|
+            result.push(sprintf("\tprivate $_%s;", var));
+        end
+
+        vars.each do |var|
+            result.push("")
+            result.push(sprintf("\tpublic function set%s($%s)", camelize(var), var))
+            result.push("\t{")
+            result.push(sprintf("\t\t$this->_%s = $%s;", var, var))
+            result.push("\t}")
+        end
+
+        vars.each do |var|
+            result.push("")
+            result.push(sprintf("\tpublic function get%s($%s)", camelize(var), var))
+            result.push("\t{")
+            result.push(sprintf("\t\treturn $this->_%s;", var))
+            result.push("\t}")
+        end
+
+        result.push('}')
+
+        return result;
+    end
+
+    # 文字列のキャメルケース変換
+    #
+    # @param [String] word 変換する文字列
+    # @return [String] キャメルケース変換後文字列
+    def camelize(word)
+        return word[0..0].capitalize + word[1..word.length]
+    end
+end
+
+Entity.start
