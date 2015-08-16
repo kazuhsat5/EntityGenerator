@@ -39,6 +39,9 @@ class Entity < Thor
     #
     # @param [String] path ファイルパス
     # @return [Array]
+    # @access private
+    # @throws RuntimeError 指定された変数ファイルが存在しない場合
+    # @throws RuntimeError 変数ファイルに変数の記述がなかった場合
     def read_file(path)
         # ファイルの存在確認
         if !(File.exist?(path)) then
@@ -63,6 +66,7 @@ class Entity < Thor
     #
     # @param [Array] contents 書き込む内容
     # @return void
+    # @access private
     def write_file(path, content)
         # ファイル書き込み
         File.open(path, "w") do |file|
@@ -76,6 +80,7 @@ class Entity < Thor
     #
     # @param [Array] vars 変数名配列
     # @return void
+    # @access private
     def make_class(vars)
         # ファイルに書き込む内容を配列で保持
         result = []
@@ -115,6 +120,7 @@ class Entity < Thor
     #
     # @param [String] word 変換する文字列
     # @return [String] キャメルケース変換後文字列
+    # @access private
     def camelize(word)
         return word[0..0].capitalize + word[1..word.length]
     end
